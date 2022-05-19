@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
-const menuSchema = new mongoose.Schema({
+const menu= new mongoose.Schema({
   productName: String,
   price: Number,
   imageTitle: String,
 });
 
-module.exports = mongoose.model("menu", menuSchema);
+module.exports = mongoose.model("menu", menu);
