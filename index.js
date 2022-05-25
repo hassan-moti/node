@@ -7,38 +7,28 @@ app.use(express.json());
 
 app.get("/", async (req, resp) => {
   let data = await product.find();
+  const copyItems = [];
   
-  // const data2= data.forEach(object=>{
-  //   delete object['price'];
-  // });
-  // console.log(data2);
+  for (let i = 0; i < data.length; i++) {
+    const newItem = { productName: data[i].productName, price: data[i].price, imageTitle: data[i].imageTitle  }
+     
+    copyItems.push(newItem);
+  }
+  console.log(copyItems);
+  resp.send(copyItems);
 
-//   let txt = "";
-//   data.forEach(myfunction);
-// console.log(txt)
-//   function myfunction(value){
-    
-// for (let x in value) {
-//   txt += value[x] + " ";
-// }
-//   }
-  // for (let element of data) {
-  //  let data2 = element;
-  //   console.log(data2);
-  // }
-  resp.send(data);
 });
 app.post("/", async (req, resp) => {
   let data = new product(req.body);
   let result = await data.save();
   resp.send(result);
 });
-app.delete("/delete/:_id", async (req, resp) => {
+app.delete("/delete/:productName", async (req, resp) => {
   let data = await product.deleteOne(req.params);
   resp.send(data);
 });
 
-app.put("/update/:_id", async (req, resp) => {
+app.put("/update/:productName", async (req, resp) => {
   let data = await product.updateOne(req.params, {
     $set: req.body,
   });
