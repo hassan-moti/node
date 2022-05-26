@@ -1,12 +1,14 @@
 const express = require("express");
 require("./mongoose");
 const product = require("./menu");
+var cors = require('cors');
 const app = express();
-
+ 
+app.use(cors()); 
 app.use(express.json());
 
 app.get("/", async (req, resp) => {
-  let data = await product.find();
+  let data = await product.find(); 
   const copyItems = [];
   
   for (let i = 0; i < data.length; i++) {
